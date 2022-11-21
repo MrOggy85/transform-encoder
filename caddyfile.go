@@ -22,9 +22,9 @@ import (
 
 // UnmarshalCaddyfile sets up the module from Caddyfile tokens. Syntax:
 //
-//     transform [<template>] [{
-//          placeholder	[<placeholder>]
-//     }]
+//	transform [<template>] [{
+//	     placeholder	[<placeholder>]
+//	}]
 //
 // If the value of "template" is omitted, Common Log Format is assumed.
 // See the godoc on the LogEncoderConfig type for the syntax of
@@ -38,6 +38,9 @@ func (se *TransformEncoder) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 		default:
 			se.Template = strings.Join(args, " ")
 		}
+
+		// Hardcode TimeLocal to true
+		se.TimeLocal = true
 
 		for nesting := d.Nesting(); d.NextBlock(nesting); {
 			subdir := d.Val()
